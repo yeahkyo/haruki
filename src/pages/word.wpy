@@ -1,107 +1,37 @@
-<style type='less'>
-  page {
-    color: #333;
-  }
-
-  .word-card {
-    margin-bottom: 40rpx;
-    font-size: 30rpx;
-
-    text {
-      display: block;
-      padding: 10rpx 40rpx;
-    }
-
-    .kanji { font-size: 40rpx; font-weight: bold }
-    .level { font-size: 26rpx; }
-  }
-
-  .text-muted {
-    color: #aaa;
-  }
-  .bottom-button {
-    position: fixed;
-    bottom: 0;
-    height: constant(safe-area-inset-bottom);
-    width: 100%;
-
-    &.iPhoneX, &.iPhoneXR {
-      height: 130rpx;
-    }
-  }
-
-  .sentences-list {
-    .seg-label {
-      font-size: 24rpx;
-      color: #333;
-      background: #eee;
-      display: block;
-      padding: 10rpx 36rpx;
-    }
-
-    .items {
-      padding: 20rpx 0;
-    }
-  }
-
-  .sentence {
-    padding: 10rpx 40rpx;
-    font-size: 30rpx;
-    .username { font-size: 20rpx; color: #ccc; }
-    text { display: block; }
-  }
-
-</style>
-
 <template>
-  <view class='word-card'>
-    <text class='kanji'>{{word.kanji}}</text>
-    <text class='word'>語：{{word.text}}</text>
-    <text class='translation'>中文意思：{{word.translation}}</text>
-    <text class='desc'>付注：{{word.desc || ""}}</text>
-    <text class='tone'>発音：{{word.tone || ""}}</text>
-    <text class='level text-muted'>{{word.level}} 級語彙</text>
-  </view>
-
-  <view class='sentences-list'>
-    <text class='seg-label'>例文</text>
-    <view class='items'>
-      <repeat for="{{sentences}}" key="id" index="index" item="item">
-        <view class='sentence'>
-          <text class='text'>{{item.text}}</text>
-          <text class='username'>{{item.user.name}}</text>
-        </view>
-      </repeat>
-    </view>
-  </view>
-
+  <word :word.sync="word"></word>
+  <sentences :sentences.sync="sentences"></sentences>
   <button class="bottom-button {{ deviceModel }}" bindtap="nextWord">次へ</button>
 </template>
 
 <script>
 import wepy from 'wepy'
 import common from '../api/api'
+import WordCard from '../components/word_card'
+import SentencesList from '../components/sentences_list'
 
 export default class Word extends wepy.page {
   data = {
-    word: {
-      id: null,
-      text: '女神様',
-      level: 'N2',
-      old_level: '',
-      kanji: '',
-      desc: '女神',
-      tone: '',
-      translation: ''
-    },
+    word: {},
     sentences: [
-      {id: null, text: '', user: {id: null, name: ''}}
+      {
+        id: null,
+        text: '',
+        user: {
+          id: null,
+          name: ''
+        }
+      }
     ],
     deviceModel: ''
   }
 
-  methods = {
+  components = {
+    'word': WordCard,
+    'sentences': SentencesList
   }
+
+  methods = {}
 
   onLoad() {
     this.nextWord()

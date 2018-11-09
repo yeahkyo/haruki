@@ -1,0 +1,57 @@
+<template>
+  <view class='sentences-list'>
+    <text class='seg-label'>例文</text>
+    <view class='items'>
+      <repeat for="{{sentences}}" key="id" index="index" item="item">
+        <view class='sentence'>
+          <text class='text'>{{item.text}}</text>
+          <text class='username'>{{item.user.name}}</text>
+        </view>
+      </repeat>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class SentencesList extends wepy.component {
+  props = {
+    sentences: {
+      type: Array,
+      default: [{
+        id: null,
+        text: '',
+        user: {
+          id: null,
+          name: ''
+        }
+      }]
+    }
+  }
+}
+
+</script>
+
+<style lang='less'>
+  .sentences-list {
+    .seg-label {
+      font-size: 24rpx;
+      color: #333;
+      background: #eee;
+      display: block;
+      padding: 10rpx 36rpx;
+    }
+
+    .items {
+      padding: 20rpx 0;
+    }
+  }
+
+  .sentence {
+    padding: 10rpx 40rpx;
+    font-size: 30rpx;
+    .username { font-size: 20rpx; color: #ccc; }
+    text { display: block; }
+  }
+</style>

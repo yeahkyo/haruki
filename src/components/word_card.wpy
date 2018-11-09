@@ -1,0 +1,46 @@
+<template>
+  <view class='word-card'>
+    <text class='kanji'>{{word.kanji}}</text>
+    <text class='word'>語：{{word.text}}</text>
+    <text class='translation'>中文意思：{{word.translation}}</text>
+    <text class='desc'>付注：{{word.desc || ""}}</text>
+    <text class='tone'>発音：{{word.tone || ""}}</text>
+    <text class='level text-muted'>{{word.level}} 級語彙</text>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class WordCard extends wepy.component {
+  props = {
+    word: {
+      type: Object,
+      default: {
+        id: null,
+        text: '',
+        level: '',
+        old_level: '',
+        kanji: '',
+        desc: '',
+        tone: '',
+        translation: ''
+      }
+    }
+  }
+}
+</script>
+
+<style type='less'>
+  .word-card {
+    margin-bottom: 40rpx;
+    font-size: 30rpx;
+
+    text {
+      display: block;
+      padding: 10rpx 40rpx;
+    }
+
+    .kanji { font-size: 40rpx; font-weight: bold }
+    .level { font-size: 26rpx; }
+  }
+</style>

@@ -1,6 +1,3 @@
-<style lang="less">
-</style>
-
 <script>
 import wepy from 'wepy'
 
@@ -8,6 +5,7 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/word'
+      // 'pages/profile'
       // 'pages/index'
     ],
     window: {
@@ -49,3 +47,23 @@ export default class extends wepy.app {
   }
 }
 </script>
+
+<style lang="less">
+  page {
+    color: #333;
+  }
+
+  .text-muted {
+    color: #aaa;
+  }
+  .bottom-button {
+    position: fixed;
+    bottom: 0;
+    height: constant(safe-area-inset-bottom);
+    width: 100%;
+
+    &.iPhoneX, &.iPhoneXR {
+      height: 130rpx;
+    }
+  }
+</style>
