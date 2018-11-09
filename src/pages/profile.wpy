@@ -1,0 +1,13 @@
+<template>
+  <scroll-view>
+    <input placeholder="評論一下" class="input" bindfocus="onFocus" />
+  </scroll-view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class Profile extends wepy.page {
+    onFocus() {
+    }
+  }
+</script>

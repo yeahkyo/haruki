@@ -1,0 +1,32 @@
+<template>
+  <image class="avatar" src="{{src}}" @tap="tap"></image>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class Avatar extends wepy.component {
+  props = {
+    src: {
+      type: String,
+      default: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3677979722,2022079017&fm=27&gp=0.jpg'
+    }
+  }
+
+  methods = {
+    tap() {
+      this.$emit('tap')
+    }
+  }
+}
+</script>
+
+<style lang='less'>
+image.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #ddd;
+  border-radius: 22px;
+  border: 2px solid #ddd;
+}
+</style>

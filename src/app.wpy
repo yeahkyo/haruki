@@ -4,8 +4,8 @@ import wepy from 'wepy'
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/word'
-      // 'pages/profile'
+      'pages/word',
+      'pages/profile'
       // 'pages/index'
     ],
     window: {

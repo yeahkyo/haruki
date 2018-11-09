@@ -2,6 +2,7 @@
   <word :word.sync="word"></word>
   <sentences :sentences.sync="sentences"></sentences>
   <button class="bottom-button {{ deviceModel }}" bindtap="nextWord">次へ</button>
+  <avatar class="user-avatar" :src.sync="avatarUrl" @tap.user="avatarTapped"></avatar>
 </template>
 
 <script>
@@ -9,29 +10,27 @@ import wepy from 'wepy'
 import common from '../api/api'
 import WordCard from '../components/word_card'
 import SentencesList from '../components/sentences_list'
+import Avatar from '../components/avatar'
 
 export default class Word extends wepy.page {
   data = {
     word: {},
-    sentences: [
-      {
-        id: null,
-        text: '',
-        user: {
-          id: null,
-          name: ''
-        }
-      }
-    ],
-    deviceModel: ''
+    sentences: [],
+    deviceModel: '',
+    avatarUrl: null
   }
 
   components = {
     'word': WordCard,
-    'sentences': SentencesList
+    'sentences': SentencesList,
+    'avatar': Avatar
   }
 
-  methods = {}
+  methods = {
+    avatarTapped() {
+      wx.navigateTo({url: '/pages/profile'})
+    }
+  }
 
   onLoad() {
     this.nextWord()
@@ -52,3 +51,11 @@ export default class Word extends wepy.page {
   }
 }
 </script>
+
+<style lang='less'>
+  .user-avatar {
+    position: fixed;
+    top: 20rpx;
+    right: 20rpx;
+  }
+</style>
