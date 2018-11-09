@@ -1,0 +1,51 @@
+<style lang="less">
+</style>
+
+<script>
+import wepy from 'wepy'
+
+export default class extends wepy.app {
+  config = {
+    pages: [
+      'pages/word'
+      // 'pages/index'
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#fff',
+      navigationBarTitleText: '語彙カード',
+      navigationBarTextStyle: 'black'
+    }
+    // tabBar: {
+    //   position: 'bottom',
+    //   selectedColor: 'green',
+    //   list: [
+    //     {
+    //       pagePath: 'pages/index',
+    //       text: 'List'
+    //     },
+    //     {
+    //       pagePath: 'pages/word',
+    //       text: 'Word'
+    //     }
+    //   ]
+    // }
+  }
+
+  globalData = {
+    deviceModel: null
+  }
+
+  onLaunch() {
+    let _this = this
+    wx.getSystemInfo({
+      success: function(res) {
+        _this.globalData.deviceModel = res.model.replace(' ', '')
+      }
+    })
+  }
+
+  onLoad() {
+  }
+}
+</script>
