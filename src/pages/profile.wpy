@@ -1,13 +1,26 @@
 <template>
-  <scroll-view>
-    <input placeholder="評論一下" class="input" bindfocus="onFocus" />
-  </scroll-view>
+  <button @tap="logout">退出登录</button>
 </template>
 
 <script>
   import wepy from 'wepy'
   export default class Profile extends wepy.page {
-    onFocus() {
+    data = {
+      user: null
+    }
+
+    onLoad(options) {
+      this.user = this.$parent.globalData.currentUser
+      wx.setNavigationBarTitle({
+        title: this.user.name
+      })
+      this.$apply()
+    }
+
+    logout() {
+      this.$parent.logout().then(function() {
+        wx.navigateBack({ url: '/pages/word' })
+      })
     }
   }
 </script>

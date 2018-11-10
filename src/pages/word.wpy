@@ -1,8 +1,9 @@
 <template>
+  <avatar class="user-avatar" :src.sync="avatarUrl" @tap.user="avatarTapped"></avatar>
+
   <word :word.sync="word"></word>
   <sentences :sentences.sync="sentences"></sentences>
   <button class="bottom-button {{ deviceModel }}" bindtap="nextWord">次へ</button>
-  <avatar class="user-avatar" :src.sync="avatarUrl" @tap.user="avatarTapped"></avatar>
 </template>
 
 <script>
@@ -13,6 +14,11 @@ import SentencesList from '../components/sentences_list'
 import Avatar from '../components/avatar'
 
 export default class Word extends wepy.page {
+
+  config = {
+    disableScroll: true
+  }
+
   data = {
     word: {},
     sentences: [],
@@ -28,7 +34,11 @@ export default class Word extends wepy.page {
 
   methods = {
     avatarTapped() {
-      wx.navigateTo({url: '/pages/profile'})
+      if (this.$parent.globalData.currentUser === null) {
+        wx.navigateTo({url: '/pages/login'})
+      } else {
+        wx.navigateTo({url: '/pages/profile'})
+      }
     }
   }
 

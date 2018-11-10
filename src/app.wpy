@@ -5,7 +5,8 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/word',
-      'pages/profile'
+      'pages/profile',
+      'pages/login'
       // 'pages/index'
     ],
     window: {
@@ -14,24 +15,35 @@ export default class extends wepy.app {
       navigationBarTitleText: '語彙カード',
       navigationBarTextStyle: 'black'
     }
-    // tabBar: {
-    //   position: 'bottom',
-    //   selectedColor: 'green',
-    //   list: [
-    //     {
-    //       pagePath: 'pages/index',
-    //       text: 'List'
-    //     },
-    //     {
-    //       pagePath: 'pages/word',
-    //       text: 'Word'
-    //     }
-    //   ]
-    // }
   }
 
   globalData = {
-    deviceModel: null
+    deviceModel: null,
+    currentUser: null,
+    token: null,
+    preference: null
+  }
+
+  saveSession() {
+    wx.setStorage({
+      key: 'session',
+      data: {
+        currentUser: this.globalData.currentUser,
+        token: this.globalData.token,
+        preference: this.globalData.preference
+      }
+    })
+  }
+
+  logout() {
+    this.globalData.currentUser = null
+    this.globalData.token = null
+    this.globalData.preference = null
+    this.saveSession()
+
+    return new Promise(function(resolve, reject) {
+      resolve()
+    })
   }
 
   onLaunch() {
@@ -41,6 +53,17 @@ export default class extends wepy.app {
         _this.globalData.deviceModel = res.model.replace(' ', '')
       }
     })
+
+    try {
+      var session = wx.getStorageSync('session')
+      if (session) {
+        this.globalData.currentUser = session.currentUser
+        this.globalData.token = session.token
+        this.globalData.preference = session.preference
+      }
+    } catch (e) {
+      console.log('load session error')
+    }
   }
 
   onLoad() {

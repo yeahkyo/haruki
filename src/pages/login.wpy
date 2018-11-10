@@ -1,0 +1,27 @@
+<template>
+  <h1>Login</h1>
+  <button @getuserinfo="login" open-type="getUserInfo">微信授权登录</button>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import api from '../api/api'
+
+  export default class Login extends wepy.page {
+    onLoad() {
+
+    }
+
+    login() {
+      let _this = this
+      api.login().then(function(result) {
+        _this.$parent.globalData.currentUser = result.user
+        _this.$parent.globalData.token = result.token
+        _this.$parent.globalData.preference = result.preference
+        _this.$parent.saveSession()
+
+        wx.navigateBack({ url: '/pages/word' })
+      })
+    }
+  }
+</script>
