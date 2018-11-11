@@ -47,10 +47,9 @@ export default class extends wepy.app {
   }
 
   onLaunch() {
-    let _this = this
     wx.getSystemInfo({
-      success: function(res) {
-        _this.globalData.deviceModel = res.model.replace(' ', '')
+      success: (res) => {
+        this.globalData.deviceModel = res.model.replace(' ', '')
       }
     })
 

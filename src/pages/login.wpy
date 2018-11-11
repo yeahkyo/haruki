@@ -13,12 +13,11 @@
     }
 
     login() {
-      let _this = this
-      api.login().then(function(result) {
-        _this.$parent.globalData.currentUser = result.user
-        _this.$parent.globalData.token = result.token
-        _this.$parent.globalData.preference = result.preference
-        _this.$parent.saveSession()
+      api.login().then((result) => {
+        this.$parent.globalData.currentUser = result.user
+        this.$parent.globalData.token = result.token
+        this.$parent.globalData.preference = result.preference
+        this.$parent.saveSession()
 
         wx.navigateBack({ url: '/pages/word' })
       })

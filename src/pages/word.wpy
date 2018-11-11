@@ -14,7 +14,6 @@ import SentencesList from '../components/sentences_list'
 import Avatar from '../components/avatar'
 
 export default class Word extends wepy.page {
-
   config = {
     disableScroll: true
   }
@@ -48,14 +47,13 @@ export default class Word extends wepy.page {
   }
 
   nextWord() {
-    let _this = this
-    common.getWord().then(function(word) {
-      _this.word = word
-      _this.$apply()
+    common.getWord().then((word) => {
+      this.word = word
+      this.$apply()
 
-      common.getSentences(word.id).then(function(sentences) {
-        _this.sentences = sentences
-        _this.$apply()
+      common.getSentences(word.id).then((sentences) => {
+        this.sentences = sentences
+        this.$apply()
       })
     })
   }
