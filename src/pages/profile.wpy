@@ -18,9 +18,8 @@
     }
 
     logout() {
-      this.$parent.logout().then(function() {
-        wx.navigateBack({ url: '/pages/word' })
-      })
+      this.$parent.logout()
+      wx.navigateBack({ url: '/pages/word' })
     }
   }
 </script>

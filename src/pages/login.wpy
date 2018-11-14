@@ -12,15 +12,11 @@
 
     }
 
-    login() {
-      api.login().then((result) => {
-        this.$parent.globalData.currentUser = result.user
-        this.$parent.globalData.token = result.token
-        this.$parent.globalData.preference = result.preference
-        this.$parent.saveSession()
+    async login() {
+      const userInfo = await api.login()
+      this.$parent.setUserInfo(userInfo)
 
-        wx.navigateBack({ url: '/pages/word' })
-      })
+      wx.navigateBack({ url: '/pages/word' })
     }
   }
 </script>

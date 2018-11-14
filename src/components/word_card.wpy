@@ -30,7 +30,7 @@ export default class WordCard extends wepy.component {
 }
 </script>
 
-<style type='less'>
+<style lang='less'>
   .word-card {
     margin-bottom: 40rpx;
     font-size: 30rpx;

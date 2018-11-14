@@ -8,13 +8,11 @@ module.exports = {
     less: {
       compress: true
     },
-    /*sass: {
-      outputStyle: 'compressed'
-    },*/
     babel: {
       sourceMap: true,
       presets: [
-        'env'
+        'es2015',
+        'stage-1'
       ],
       plugins: [
         'babel-plugin-transform-class-properties',
@@ -39,7 +37,7 @@ if (prod) {
   // module.exports.compilers['sass'] = {outputStyle: 'compressed'}
 
   // 压缩less
-  module.exports.compilers['less'] = {
+  module.exports.compilers['sass'] = {
     compress: true
   }
 

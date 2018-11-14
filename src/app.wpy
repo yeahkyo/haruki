@@ -1,5 +1,6 @@
 <script>
 import wepy from 'wepy'
+import 'wepy-async-function'
 
 export default class extends wepy.app {
   config = {
@@ -7,7 +8,6 @@ export default class extends wepy.app {
       'pages/word',
       'pages/profile',
       'pages/login'
-      // 'pages/index'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -24,26 +24,22 @@ export default class extends wepy.app {
     preference: null
   }
 
+  setUserInfo(userInfo) {
+    this.globalData.currentUser = userInfo.user
+    this.globalData.token = userInfo.token
+    this.globalData.preference = userInfo.preference
+    this.saveSession()
+  }
+
   saveSession() {
     wx.setStorage({
       key: 'session',
-      data: {
-        currentUser: this.globalData.currentUser,
-        token: this.globalData.token,
-        preference: this.globalData.preference
-      }
+      data: this.globalData
     })
   }
 
   logout() {
-    this.globalData.currentUser = null
-    this.globalData.token = null
-    this.globalData.preference = null
-    this.saveSession()
-
-    return new Promise(function(resolve, reject) {
-      resolve()
-    })
+    this.setUserInfo({user: null, token: null, preference: null})
   }
 
   onLaunch() {
